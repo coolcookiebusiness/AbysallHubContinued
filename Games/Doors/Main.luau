@@ -688,7 +688,7 @@ Functions.Notify = function(Settings)
 			end
 		end
 		Globals.DoorsNotify({
-			Title = "Abysall Continued",
+			Title = "Abysall Hub Continued",
 			Description = Settings.Title,
 			Reason = Settings.Body,
 			Style = IsEntity and "WARNING" or "NOTIFICATION",
