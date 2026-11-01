@@ -1261,7 +1261,19 @@ local Window = Library:CreateWindow({
 })
 
 
+
+
 Abysall.Interface.ApplyInfoTab(Window)
+
+local Tabs = {
+	General = Window:AddTab("General", "house"),
+	Exploits = Window:AddTab("Exploits", "shield"),
+	Visuals = Window:AddTab("Visuals", "eye"),
+	Floors = Window:AddTab("Floors", "earth"),
+	Archives = Window:AddTab("Archives", "rbxassetid://104508835882225"),
+	Stairwell = Window:AddTab("Stairwell", "rbxassetid://80017304328364"),
+	Helloween = Window:AddTab("New - Halloween", "rbxassetid://101034055693026"),
+}
 
 
 Groupboxes.General_Character = Tabs.General:AddLeftGroupbox("Character")
@@ -8303,6 +8315,7 @@ end)
 
 
 while not Globals.MainUI do task.wait() end
+
 
 Abysall.Interface.ApplySettingsTab(Window)
 Functions.Notify({ Title = "Successfully loaded in " .. math.floor((tick() - LoadStart) * 1000) / 1000 .. " seconds." , Body = "Press '" .. tostring(Options.MenuKeybind.Value) .. "' to toggle the UI."})
