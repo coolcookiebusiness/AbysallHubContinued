@@ -187,22 +187,6 @@ end
 local LocalPlayer = Services.Players.LocalPlayer
 
 
-local amongusball = {
-	"nauddzandstra",
-	"uselessusern",
-	"cuenta2de9dos_panas",
-	"H0CZS",
-	"eosf101mohab"
-}
-
-if not table.find(amongusball, LocalPlayer.Name) then
-	LocalPlayer:Kick("This script is stolen, Join the orrginal: dsc.gg/abysallhubcontinued")
-	error("This script is stolen, Join the orrginal: dsc.gg/abysallhubcontinued")
-	wait(4)
-	game:Shutdown()
-end
-
-
 local PortraitName = "MirrorRig_Portrait_" .. LocalPlayer.Name
 
 
