@@ -187,10 +187,19 @@ end
 local LocalPlayer = Services.Players.LocalPlayer
 
 
+
 local PortraitName = "MirrorRig_Portrait_" .. LocalPlayer.Name
 
 
 local Entities = {
+	["Weaveling"] = {
+		Alias = "Weaveling",
+		NotifyMessage = { Title = "Weaveling has spawned", Body = "Try to grab it" }
+	},
+	["Creak-HALLOWEEN26"] = {
+		Alias = "CreakHalloween",
+		NotifyMessage = { Title = "Sir Abraham Creakstopher II spawned", Body = "He scary"}
+	},
 	["TV_Stand"] = {
 		Alias = "Noise_TV",
 		NotifyMessage = { Title = "Noise tv spawned.", Body = "Dont get near it" }
@@ -317,8 +326,21 @@ local EntityIcons = {
 }
 
 local ItemNames = {
-	["AbrahamHat"]        = "Hat",
-	["LargeScrew"]        = "Screw",
+    ["AbrahamHat"]       = "Hat",
+    ["LargeScrew"]       = "Screw",
+    ["KeyJewelry"]       = "Jewerly Key",
+    ["Leftovers"]        = "Lunch Box",
+    ["Haybale"]          = "Haybale",
+    ["WizardHat"]        = "Wizard Hat",
+    ["CandyBasket"]      = "Candy Basket",
+    ["BrokenHeadstone"]  = "Broken Headstone",
+    ["GiantGummyworm"]   = "Giant Gummyworm",
+    ["ChocolateCrate"]   = "Crate of Chocolate",
+    ["CandyBucket"]      = "Candy Bucket",
+    ["LargeCandyBag"]    = "Large Candy Bag",
+    ["SmallCauldron"]    = "Small Cauldron",
+    ["ObjectScanner"]    = "Scanner",
+    ["Drive"]            = "Drive",
 	["DinkyLamp"]         = "Lamp",
 	["BottleCrate"]       = "18+ Bottles",
 	["GweenSodaPack"]     = "Gween Soda Pack",
@@ -672,7 +694,7 @@ Functions.Notify = function(Settings)
 			end
 		end
 		Globals.DoorsNotify({
-			Title = "Abysall Hub Continued",
+			Title = "Abysall Hub",
 			Description = Settings.Title,
 			Reason = Settings.Body,
 			Style = IsEntity and "WARNING" or "NOTIFICATION",
@@ -1245,8 +1267,6 @@ local Window = Library:CreateWindow({
 })
 
 
-
-
 Abysall.Interface.ApplyInfoTab(Window)
 
 local Tabs = {
@@ -1256,7 +1276,7 @@ local Tabs = {
 	Floors = Window:AddTab("Floors", "earth"),
 	Archives = Window:AddTab("Archives", "rbxassetid://104508835882225"),
 	Stairwell = Window:AddTab("Stairwell", "rbxassetid://80017304328364"),
-	Helloween = Window:AddTab("New - Halloween", "rbxassetid://101034055693026"),
+	Halloween = Window:AddTab("New - Halloween", "rbxassetid://101034055693026"),
 }
 
 
@@ -4425,6 +4445,97 @@ Toggles.DroppedItemValue:OnChanged(function(DroppedItemValue)
 	end)
 end)
 
+-- Halloween
+Groupboxes.Halloween_Misc = Tabs.Halloween:AddLeftGroupbox("Exploits / Anti")
+--[[
+ Groupboxes.Halloween_Misc:AddButton({
+	Text = "Candy Farm",
+	Func = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/coolcookiebusiness/AbysallHubContinued/refs/heads/main/Games/Doors/verity's%20auto%20farm.txt")) end,
+	DoubleClick = false,
+	Tooltip = "By Indexell."
+}) 
+--]]
+Groupboxes.Halloween_Misc:AddToggle("SkipCutsenesHalloween", {
+	Text = "Skip Cutsenes", Default = false,
+	Tooltip = "Skip cutsenes."
+})
+Groupboxes.Halloween_Misc:AddToggle("RemoveFogHalloween", {
+    Text = "Remove Extra Fog",
+    Default = false,
+    Tooltip = "Removes The extra fog."
+})
+Groupboxes.Halloween_Misc:AddButton({
+	Text = "Bring Dropped Candy",
+	Func = function() BringDroppedItems() end,
+	DoubleClick = false,
+	Tooltip = "Brings all dropped Candy (use for the depot)."
+})
+
+Groupboxes.Halloween_Misc:AddToggle("EnableDroppedItemsIntervalHalloween", {
+	Text = "Enable Interval",
+	Default = false,
+	Tooltip = "Automatically brings candy items at the selected interval."
+})
+
+Groupboxes.Halloween_Misc:AddSlider("DroppedItemsIntervalHalloween", {
+	Text = "Interval",
+	Default = 1,
+	Min = 0,
+	Max = 60,
+	Rounding = 1,
+	Compact = false,
+	Tooltip = "How often dropped items are brought."
+})
+
+Toggles.EnableDroppedItemsIntervalHalloween:OnChanged(function(enabled)
+	if enabled then
+		if droppedItemsIntervalRunning then return end
+		droppedItemsIntervalRunning = true
+		task.spawn(function()
+			while Toggles.EnableDroppedItemsIntervalHalloween.Value do
+				BringDroppedItems()
+				local interval = Options.DroppedItemsIntervalHalloween.Value
+				if interval <= 0 then
+					task.wait()
+				else
+					task.wait(interval)
+				end
+			end
+			droppedItemsIntervalRunning = false
+		end)
+	end
+end)
+
+Toggles.SkipCutsenesHalloween:OnChanged(function(Value)
+    if Value then
+        task.spawn(function()
+            local Event = game:GetService("ReplicatedStorage").FloorReplicated.ClientRemote.SkipCutscene.Remote
+
+            while Toggles.SkipCutsenesHalloween.Value do
+                Event:FireServer(1, true)
+                Event:FireServer(2, true)
+
+
+                task.wait(0.5)
+            end
+        end)
+    end
+end)
+Toggles.RemoveFogHalloween:OnChanged(function(Value)
+    if Value then
+        task.spawn(function()
+            while Toggles.RemoveFogHalloween.Value do
+                for _, v in ipairs(workspace:GetDescendants()) do
+                    if v.Name == "FogScout" or v.Name == "FogHolder" then
+                        v:Destroy()
+                    end
+                end
+
+                task.wait(0.5)
+            end
+        end)
+    end
+end)
 -- hi
 
 Groupboxes.Exploits_BypassRight = Tabs.Exploits:AddRightGroupbox("Bypass")
@@ -4861,7 +4972,7 @@ Groupboxes.Visuals_EntitySettings = Groupboxes.Visuals_RightTab:AddTab("Settings
 
 Groupboxes.Visuals_Entities:AddDropdown("EntityList", {
 	Text = "Entity List",
-	Values = { "Rush","Bash","Scribbles","Teller","DronesStampede","Creak","Noise","Noise_TV","Balls","Portrait","Ambush","Eyes","Halt","Blitz","Lookman","Gloombat Swarm","A-60","A-120","Sally","Jeff the Killer","Groundskeeper","Monument","AR0xMBUSH","RNIUSHCG==" },
+	Values = { "Rush","Bash","Scribbles","Teller","DronesStampede","Creak","Noise","Noise_TV","Balls","Portrait","CreakHalloween","Weaveling","Ambush","Eyes","Halt","Blitz","Lookman","Gloombat Swarm","A-60","A-120","Sally","Jeff the Killer","Groundskeeper","Monument","AR0xMBUSH","RNIUSHCG==" },
 	Multi = true, AllowNull = true
 })
 Groupboxes.Visuals_Entities:AddToggle("NotifyEntities",    { Text = "Notify Entities",    Default = false, Tooltip = "Sends a notification when an entity spawns." })
@@ -5146,6 +5257,7 @@ Groupboxes.Visuals_ESP_Toggles:AddToggle("ObjectiveESPToggle", { Text = "Objecti
 Toggles.ObjectiveESPToggle:AddColorPicker("ObjectiveESPColor", { Text = "Objectives", Default = Color3.fromRGB(0, 255, 0), Transparency = 0 })
 
 local ObjectiveLabels = {
+	["DepotHalloween"] 		   = "Candy Magic",
 	["StairwellLockpickDoor"]  = "Garage Door",
 	["Mirror"]				   = "Mirror",
 	["ShoppingCart"]		   = "Shopping Cart",
@@ -5206,7 +5318,7 @@ Groupboxes.Visuals_ESP_Toggles:AddToggle("MiscESPToggle",       { Text = "Misc",
 Groupboxes.Visuals_ESP_Toggles:AddDivider()
 Groupboxes.Visuals_ESP_Toggles:AddDropdown("EntityESPOptions",     { 
 	Text = "Entity List",
-	Values = { "Rush","Bash","Scribbles","Teller","DronesStampede","Creak","Noise","Noise_TV","Balls","Portrait","Ambush","Eyes","Dupe","Figure","Blitz","Lookman","Snare","Giggle","Gloombat Eggs","Grumble","A-60","A-120","Sally","Jeff the Killer","Groundskeeper","Mandrake Hole","Monument","Bramble","AR0xMBUSH","RNIUSHCG==" },
+	Values = { "Rush","Bash","Scribbles","Teller","DronesStampede","Creak","Noise","Noise_TV","Balls","Portrait","CreakHalloween","Weaveling","Ambush","Eyes","Dupe","Figure","Blitz","Lookman","Snare","Giggle","Gloombat Eggs","Grumble","A-60","A-120","Sally","Jeff the Killer","Groundskeeper","Mandrake Hole","Monument","Bramble","AR0xMBUSH","RNIUSHCG==" },
 	Multi = true,
 	AllowNull = true
 })
@@ -6891,6 +7003,9 @@ Functions.HandleObject = function(Object)
 				table.insert(Objects.Objectives, Object)
 			end
 		end)
+	elseif Name == "DepotHalloween" then
+		if Toggles.ObjectiveESPToggle.Value then Functions.AddESP({ Object = Object, Text = "Candy Magic", Color = Options.ObjectiveESPColor.Value }, true) end
+		table.insert(Objects.Objectives, Object)
 	elseif Name == "StairwellLockpickDoor" then
 		if Toggles.MiscESPToggle.Value then Functions.AddESP({ Object = Object, Text = "Garage Door", Color = Options.MiscESPColor.Value }, true) end
 		table.insert(Objects.Misc, Object)
@@ -7492,7 +7607,7 @@ Functions.HandleObject = function(Object)
 		local LockPromptNames = { UnlockPrompt=true, SkullPrompt=true, LockPrompt=true, ThingToEnable=true, FusesPrompt=true }
 
 		if Functions.CheckCompatability({"fireproximityprompt"}) and Floor ~= "OldHotel" and Floor ~= "Fools" then
-			local IsLockPrompt = LockPromptNames[Object.Name]
+			local IsLockPrompt = LockPromptNames[Object.Name] and Object.Parent.Name ~= "Handle" and Object.Parent.Name ~= "LockHolder"
 				or (Object.Parent and Object.Parent:GetAttribute("Locked") == true)
 				or (Object.Parent and Object.Parent.Parent and Object.Parent.Parent.Name == "Locker_Small_Locked" and Object.Name == "ActivateEventPrompt")
 
@@ -7614,7 +7729,7 @@ local AllowedInstances = {
 	GardenGateButton=true, LotusPetalPickup=true, VineGuillotine=true, LiveEntityBramble=true, ArchivesFihTank=true,
 	RiftSpawn=true, ElevatorBreaker=true, RunnerNodes=true, PathLights=true, DuckBoard=true,
 	Padlock=true, EyestalkEndCutscene=true, MinecartRig=true, SeekMovingNewClone=true, Cellar=true, ArchivesPackageDeposit=true, StairwellScrapper=true,
-	StairwellFireAlarm=true, ShoppingCart=true, Mirror=true, StairwellLockpickDoor=true
+	StairwellFireAlarm=true, ShoppingCart=true, Mirror=true, StairwellLockpickDoor=true, DepotHalloween=true
 }
 
 Functions.QueueObject = function(Object)
@@ -7907,6 +8022,7 @@ Functions.TriggerPrompt = function(Prompt)
 
 
 	-- Stairwell
+	if Prompt.Parent.Parent.Parent.Parent.Name == "CandyVault" then return end
 	if Prompt.Parent.Name == "StairwellScrapper" then return end
 	if Prompt.Name == "PortraitDupePrompt" or Prompt.Parent.Name == "MirrorTool" then return end
 	if Prompt.Name == "LaptopPrompt" or Prompt.Parent.Name == "SecretLaptop" then return end
