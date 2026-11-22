@@ -11,31 +11,42 @@
     },
     {
       "id": "song_002",
-      "title": "Song Two",
-      "artist": "Artist Two",
-      "audio": "https://example.com/music/song2.mp3",
-      "image": "https://example.com/images/song2.gif"
+      "title": "All I Want for Christmas Is You",
+      "artist": "Mariah Carey",
+      "audio": "https://github.com/coolcookiebusiness/AbysallHubContinued/blob/main/Data/Playlist/Audio/Alliwantforchristmasisu.mp3",
+      "image": "https://i.scdn.co/image/ab67616d0000b273c0862332847213b151ffab31"
     },
     {
       "id": "song_003",
-      "title": "Song Three",
-      "artist": "Artist Three",
-      "audio": "https://example.com/music/song3.mp3",
-      "image": "https://example.com/images/song3.png"
+      "title": "It's the Most Wonderful Time of the Year",
+      "artist": "Andy Williams",
+      "audio": "https://github.com/coolcookiebusiness/AbysallHubContinued/blob/main/Data/Playlist/Audio/itsthemostwonderfulltimeoftheyes.mp3",
+      "image": "https://i.scdn.co/image/ab67616d0000b273bc5b8079eaec602335cc6e5d"
     },
     {
       "id": "song_004",
-      "title": "Song Four",
-      "artist": "Artist Four",
-      "audio": "https://example.com/music/song4.mp3",
-      "image": "https://example.com/images/song4.gif"
+      "title": "Love Me",
+      "artist": "JMSN",
+      "audio": "https://github.com/coolcookiebusiness/AbysallHubContinued/blob/main/Data/Playlist/Audio/lovemejsmn.mp3",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRywwuAow2TsTO3WqsPE94g4NC3XaKuE-VUzWK8pl2S6zwMKxh6Wul6hfuQ&s=10"
     },
     {
       "id": "song_005",
-      "title": "Song Five",
-      "artist": "Artist Five",
-      "audio": "https://example.com/music/song5.mp3",
-      "image": "https://example.com/images/song5.png"
+      "title": "Santa Claus Is Comin' to Town",
+      "artist": "Mariah Carey",
+      "audio": "https://github.com/coolcookiebusiness/AbysallHubContinued/blob/main/Data/Playlist/Audio/santaclausiscomingtotown.mp3",
+      "image": "https://i.scdn.co/image/ab67616d0000b273c0862332847213b151ffab31"
+    }
+  ],
+  "playlists": [
+    {
+      "id": "playlist_a5ddc290a62f4cab",
+      "name": "Christmas",
+      "songIds": [
+        "song_002",
+        "song_003",
+        "song_005"
+      ]
     }
   ]
 }
